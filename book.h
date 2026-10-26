@@ -1,4 +1,4 @@
-#ifndef BOOK_H
+﻿#ifndef BOOK_H
 #define BOOK_H
 
 #include <string>
@@ -47,8 +47,11 @@ bool isClassic(const Book& book);
 double readingTime(const Book& book, int pages_per_day);
 bool isOlder(const Book& first, const Book& second);
 
-// Практика: передача по значению, по ссылке
+// Практика: передача по значению, по ссылке, const-ссылке и указателю
 void swap_titles_by_value(Book b1, Book b2);
 void swap_titles_by_reference(Book& b1, Book& b2);
+bool is_older(const Book& b1, const Book& b2);
+void swap_titles_by_pointer(Book* b1, Book* b2);
+bool is_book_available(const Book* book);
 
 #endif

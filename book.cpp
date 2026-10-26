@@ -1,4 +1,4 @@
-#include "book.h"
+﻿#include "book.h"
 
 #include <stdexcept>
 #include <sstream>
@@ -157,22 +157,56 @@ double readingTime(const Book& book, int pages_per_day)
 
     return static_cast<double>(book.getPages()) / pages_per_day;
 }
-// Cравнение двух книг
+// Сравнение двух книг (существующая функция сохранена)
 bool isOlder(const Book& first, const Book& second)
 {
     return first.getYear() < second.getYear();
 }
-// Обмен названий по значению: работает с КОПИЯМИ, оригиналы не меняются
+
+// Часть 1. Обмен по значению: меняются только локальные копии.
 void swap_titles_by_value(Book b1, Book b2)
 {
     std::string temp = b1.getTitle();
     b1.updateTitle(b2.getTitle());
     b2.updateTitle(temp);
 }
-// Обмен названий по ссылке: работает с самими объектами
+
+// Часть 2. Обмен по ссылке: меняются исходные объекты.
 void swap_titles_by_reference(Book& b1, Book& b2)
 {
     std::string temp = b1.getTitle();
     b1.updateTitle(b2.getTitle());
     b2.updateTitle(temp);
+}
+
+// Часть 3. Const-ссылки: чтение без копирования и без возможности изменить книги.
+bool is_older(const Book& b1, const Book& b2)
+{
+    return b1.getYear() < b2.getYear();
+}
+
+// Часть 4. Обмен через указатели.
+// Если хотя бы один указатель равен nullptr, ничего не делаем.
+void swap_titles_by_pointer(Book* b1, Book* b2)
+{
+    if (b1 == nullptr || b2 == nullptr)
+    {
+        return;
+    }
+
+    std::string temp = b1->getTitle();
+    b1->updateTitle(b2->getTitle());
+    b2->updateTitle(temp);
+}
+
+// Часть 5. Проверка доступности.
+// Нулевой указатель не указывает на книгу, поэтому возвращаем false.
+bool is_book_available(const Book* book)
+{
+    if (book == nullptr)
+    {
+        return false;
+    }
+
+    return book->isAvailable();
 }
